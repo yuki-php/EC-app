@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/item','ItemController@index');
+Route::get('/hello','ItemController@index');
 
 Auth::routes();
 

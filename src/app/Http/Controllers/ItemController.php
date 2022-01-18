@@ -8,6 +8,6 @@ class ItemController extends Controller
 {
     public function index(request $request) 
     {
-        return view('index');
+        return view('/index');
     }
 }

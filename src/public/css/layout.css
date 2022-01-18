@@ -1,0 +1,38 @@
+.navbar {
+    background-color: #222831;
+    color: #fff;
+}
+.navbar-logo {
+    height: 60px;
+    margin-right: 15px;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: #fff;
+}
+/* .main {
+    background-color: #393e46;
+    min-height: 85vh;
+    padding: 30px 5%;
+} */
+.pagetitle {
+    color: #fff;
+    margin-bottom: 20px;
+}
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1;
+}
+.footer {
+    background-color: #222831;
+    text-align: center;
+}
+.copyright {
+    color: #fff;
+}
