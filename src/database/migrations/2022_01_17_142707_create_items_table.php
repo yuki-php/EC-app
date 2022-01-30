@@ -16,10 +16,10 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->id();
             $table->string('maker_code')->nullable();
-            $table->string('cm_number')->nullable();
+            $table->string('cm_number')->nullable()->index();
             $table->string('maker_name')->nullable();
             $table->string('name')->nullable();
-            $table->string('categoriy')->nullable();
+            $table->string('category')->nullable();
             $table->unsignedInteger('wholesale_price')->nullable();
             $table->unsignedInteger('sale_price')->nullable();
             $table->foreignId('maker_id')->constrained('makers')->nullable();
@@ -34,7 +34,7 @@ class CreateItemsTable extends Migration
             $table->string('pack_size');
             $table->boolean('postage_flag');
             $table->unsignedInteger('limit_stock')->nullable();
-            $table->string('renarks')->nullable();
+            $table->string('remarks')->nullable();
             $table->date('delivery_date')->nullable();
             $table->boolean('sale_flag')->default(0)->comment('出品済みフラグ');
             $table->boolean('stop_sale_flag')->default(0);

@@ -12,12 +12,23 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('/hello','ItemController@index');
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/','ItemController@index');
+
+    /**===新規登録=== */
+    Route::get('/regist_item','RegistItemController@index');
+    Route::post('/regist_item','RegistItemController@store');
+
+
+
+});
+
+

@@ -26,13 +26,28 @@ body {
   display: flex;
   flex-direction: column;
 }
+.main {
+    padding: 0 20px;
+}
+#content {
+    width: 100%;
+    position: relative;
+    margin: 30px auto;
+    padding: 0 20px;
+}
 .content {
   flex: 1;
 }
 .footer {
+    bottom: 0;
+    width: 100%;
     background-color: #222831;
     text-align: center;
 }
 .copyright {
     color: #fff;
+}
+
+.th-row {
+    background-color: #DCDCDC;
 }

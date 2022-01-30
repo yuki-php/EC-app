@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Item;
+
 class ItemController extends Controller
 {
     public function index(request $request) 
     {
-        return view('/index');
+        $items = Item::sortable()->paginate(50);
+
+        return view('/index',compact('items'));
     }
 }

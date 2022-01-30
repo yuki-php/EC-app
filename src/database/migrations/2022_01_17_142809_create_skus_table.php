@@ -15,17 +15,19 @@ class CreateSkusTable extends Migration
     {
         Schema::create('skus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('item_id')->constrained('items')->nullable();
-            $table->string('maker_color');
-            $table->string('color');
-            $table->string('color_display_order');
-            $table->string('maker_size');
-            $table->string('size');
-            $table->string('size_display_order');
-            $table->string('sku_coode');
+            $table->foreignId('item_id')->constrained('items')->nullable()->index();
+            $table->string('maker_type1');
+            $table->string('maker_type2');
+            $table->string('maker_type3');
+            $table->string('item_type1');
+            $table->string('type1_display_order');
+            $table->string('item_type2');
+            $table->string('type2_display_order');
+            $table->string('item_type3');
+            $table->string('type3_display_order');
+            $table->string('sku_code')->index();
+            $table->string('barcode');
             $table->unsignedSmallInteger('stocks');
-            $table->foreignId('color_image_id')->constrained('images')->nullable();
-            $table->foreignId('size_image_id')->constrained('images')->nullable();
             $table->boolean('out_of_stock_flag')->default(0)->comment('在庫切れフラグ');
             $table->timestamps();
         });

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMakersTable extends Migration
+class CreateColorImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateMakersTable extends Migration
      */
     public function up()
     {
-        Schema::create('makers', function (Blueprint $table) {
+        Schema::create('color_images', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable('false');
-            $table->tinyInteger('shipping_date')->unsigned()->->nullable()->comment('出荷日');
+            $table->foreignId('item_id')->constrained('items')->nullable();
+            $table->string('file_path')->nullable();
+            $table->string('color_name')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateMakersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('makers');
+        Schema::dropIfExists('color_images');
     }
 }

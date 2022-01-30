@@ -4,8 +4,8 @@
 <!-- ヘッダー -->
 <nav class="navbar navbar-expand-md navbar-dark shadow-sm">
   <div class="container">
-    <a class="navbar-brand" href="{{ url('/') }}">
-      <img class='navbar-logo' src="">
+    <a class="navbar-brand" href="">
+      <img class='navbar-logo' src="{{asset('storage/icon/header-icon.jpeg')}}">
       {{ config('app.name', 'App') }}
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -15,7 +15,7 @@
       <ul class="navbar-nav my-1">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-tshirt"></i> 商品
+          <i class="fas fa-tshirt"></i>商品
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/">商品一覧</a>
@@ -24,7 +24,7 @@
         </li>
       </ul>
     </div>
-    <li class="nav-item dropdown">
+    <ui class="nav-item dropdown">
       <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
           {{ Auth::user()->name }} <span class="caret"></span>
       </a>
@@ -39,7 +39,7 @@
               @csrf
           </form>
       </div>
-    </li>
+    </ui>
   </div>
 </nav>
 </div>
