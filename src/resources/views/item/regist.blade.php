@@ -130,7 +130,7 @@
               <tr>
                 <th scope="col">タイプ{{$tCount}}</th>
                 <th scope="col">
-                  <input type='text' name="types[maker_type{{$tCount}}]['name']" class="form-control form-control-sm  w-100" value="{{old('item_type$tCount')}}">
+                  <input type='text' name="types[maker_type{{$tCount}}][name]" class="form-control form-control-sm  w-100" value="{{old('item_type$tCount')}}">
                 </th>
               </tr>
             </thead>

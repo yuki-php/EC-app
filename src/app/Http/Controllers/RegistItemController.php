@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Item;
 use App\Models\Maker;
@@ -39,11 +40,42 @@ class RegistItemController extends Controller
     public function store(Request $request)
     {
         $attributes = collect($request->all());
-
-        // $newItem = Item::create($attributes);
-        // dd($attributes);
         $types=  $attributes->get('types');
-        dd($types,$attributes);
+
+        DB::beginTransaction();
+        try {
+            // $newItem = Item::create($attributes);
+
+            if($types['maker_type1']['name'] !== null) {
+                foreach($types['maker_type1'] as $key => $value) {
+                   if($key === 'name') continue;
+                   if($value === null) break;
+                   
+                   if($types['maker_type2']['name'] !== null) {
+                        foreach($types['maker_type2'] as $key => $value) {
+                            if($key === 'name') continue;
+                            if($value === null) break;
+                            dd($value);
+
+                            if($types['maker_type3']['name'] !== null) {
+                                foreach($types['maker_type3'] as $key => $value) {
+                                    if($key === 'name') continue;
+                                    if($value === null) break;
+                                    
+                                }
+                            }
+                        }
+                   }
+                }
+            }
+
+            dd($types,$attributes);
+            // DB::commit();
+        } catch(\Exception $e){
+            DB::rollback();
+            dd($e);
+        }
+
         return redirect()->back()->withInput();
     }
 
