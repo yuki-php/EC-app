@@ -26,9 +26,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-.main {
-    padding: 0 20px;
-}
 #content {
     width: 100%;
     position: relative;
@@ -39,8 +36,8 @@ body {
   flex: 1;
 }
 .footer {
-    bottom: 0;
     width: 100%;
+    padding: 5px;
     background-color: #222831;
     text-align: center;
 }

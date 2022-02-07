@@ -8,6 +8,9 @@
     <!-- title -->
     <title>@yield('title')</title>
 
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
     <!-- Fonts -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
 
@@ -34,5 +37,6 @@
         @include('layouts.parts.footer')
     </div>
     @yield('foot_script')
+    
 </body>
 </html>

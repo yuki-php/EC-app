@@ -21,11 +21,14 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/','ItemController@index');
+    /**===新規登録=== **/
+    Route::get('/item','ItemController@index');
+    Route::get('/item/show/{itemId}','ItemController@show');
 
-    /**===新規登録=== */
+    /**===新規登録=== **/
     Route::get('/regist_item','RegistItemController@index');
     Route::post('/regist_item','RegistItemController@store');
+
 
 
 

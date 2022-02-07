@@ -10,7 +10,7 @@
 <div class="mb-3 clearfix">
   <!-- 新規登録ボタン -->
   <div class="clearfix">
-    <a href="/regist_item" class="btn btn-success rounded-pill align-baseline align-base" >
+    <a href="/regist_item" class="btn btn-success rounded-pill align-baseline align-base float-right" >
       <i class="fas fa-plus"></i> 新規登録
     </a>
   </div>
@@ -20,8 +20,8 @@
   </div>
 </div>
 
-<table class="table table-striped table-hover">
-  <thead>
+<table class="table table-hover">
+  <thead class="text-center">
     <tr>
       <th>商品画像</th>
       <th>@sortablelink('cm_number', '品番')</th>
@@ -32,18 +32,20 @@
       <th class="text-center" style="width:50px;">削除</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody class="table-bordered table-striped">
     @foreach($items as $item)
     <tr class="align-middle">
       <td class="align-middle" style="width:90px;">
-      <picture>
-        <source type="image/webp" srcset=""
-          height="70px"
-          class="d-block mx-auto"/>
-        <img src=""
-          height="70px"
-          class="d-block mx-auto" />
-      </picture>
+        <a href="{{ url('/item/show',$item->id)}}">
+          <picture>
+            <source type="image/webp" srcset=""
+              height="70px"
+              class="d-block mx-auto"/>
+            <img src=""
+              height="70px"
+              class="d-block mx-auto" />
+          </picture>
+        </a>
       </td>
       <td class="align-middle">{{$item->cm_number}}</td>
       <td class="align-middle">{{$item->name}}</td>

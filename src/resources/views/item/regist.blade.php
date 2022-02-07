@@ -130,7 +130,7 @@
               <tr>
                 <th scope="col">タイプ{{$tCount}}</th>
                 <th scope="col">
-                  <input type='text' name="types[maker_type{{$tCount}}][name]" class="form-control form-control-sm  w-100" value="{{old('item_type$tCount')}}">
+                  <input type='text' name="types[maker_type{{$tCount}}][name]" class="form-control form-control-sm  w-100" value="@if($tCount === 1)サイズ @elseif($tCount === 2) カラー @else{{old('item_type$tCount')}} @endif">
                 </th>
               </tr>
             </thead>
@@ -173,22 +173,22 @@
 @section('foot_script')
 <script>
 //一括変更行表示・非表示
-function openBundle(tar_btn){
+  function openBundle(tar_btn){
 
-  let typeNum = tar_btn.id;
-  let table = document.getElementById(typeNum + '_table');
-  let target = document.getElementsByClassName(typeNum + '_over');
-  if(table.getElementsByClassName('d-none').length > 0) {
-    for(let i = 0; i <= target.length-1; i++) {
-      target[i].classList.remove('d-none');
-      tar_btn.innerHTML = '6行目以降を非表示する ';
-    }
-  } else {
-    for(let i = 0; i <= target.length-1; i++) {
-      target[i].classList.add('d-none');
-      tar_btn.innerHTML = '6行目以降を表示する ';
+    let typeNum = tar_btn.id;
+    let table = document.getElementById(typeNum + '_table');
+    let target = document.getElementsByClassName(typeNum + '_over');
+    if(table.getElementsByClassName('d-none').length > 0) {
+      for(let i = 0; i <= target.length-1; i++) {
+        target[i].classList.remove('d-none');
+        tar_btn.innerHTML = '6行目以降を非表示する ';
+      }
+    } else {
+      for(let i = 0; i <= target.length-1; i++) {
+        target[i].classList.add('d-none');
+        tar_btn.innerHTML = '6行目以降を表示する ';
+      }
     }
   }
-}
 </script>
 @endsection
