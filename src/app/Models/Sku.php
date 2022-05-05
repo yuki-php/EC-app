@@ -12,4 +12,10 @@ class Sku extends Model
     {
         return $this->belongsTo(Item::class);
     }
+
+    public function getColorImages()
+    {
+        return $this->hasMany(colorImage::class, 'item_id', 'item_id')
+        ->where('color', $this->color_code);
+    }
 }

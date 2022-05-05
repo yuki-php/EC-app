@@ -19,6 +19,8 @@
     <link href="{{ asset('css/utility.css') }}" rel="stylesheet">
     <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
     @yield('css')
+
+    @yield('head_script')
 </head>
 <body>
     <div id="app">
@@ -37,6 +39,6 @@
         @include('layouts.parts.footer')
     </div>
     @yield('foot_script')
-    
+    @include('layouts.parts.loading')
 </body>
 </html>

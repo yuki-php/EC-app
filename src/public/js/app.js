@@ -49775,6 +49775,16 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+window.overlayLoading = {
+  show: function show() {
+    $("#overlayLoadingWrap").show();
+    $("body").addClass("overflow-hidden");
+  },
+  hide: function hide() {
+    $("body").removeClass("overflow-hidden");
+    $("#overlayLoadingWrap").hide();
+  }
+};
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your

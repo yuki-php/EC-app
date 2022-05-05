@@ -6,6 +6,17 @@
 
 require('./bootstrap');
 
+window.overlayLoading = {
+    show: () => {
+        $("#overlayLoadingWrap").show();
+        $("body").addClass("overflow-hidden");
+    },
+    hide: () => {
+        $("body").removeClass("overflow-hidden");
+        $("#overlayLoadingWrap").hide();
+    }
+};
+
 window.Vue = require('vue');
 
 /**

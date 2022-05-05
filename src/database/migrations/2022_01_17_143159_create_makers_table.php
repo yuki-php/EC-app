@@ -16,7 +16,9 @@ class CreateMakersTable extends Migration
         Schema::create('makers', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable('false');
+            $table->string('name_kana')->nullable();
             $table->tinyInteger('shipping_date')->unsigned()->nullable()->comment('出荷日');
+            $table->boolean('supply_flag')->default(0)->comment('発注先フラグ');
             $table->timestamps();
         });
     }

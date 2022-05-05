@@ -4,7 +4,8 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Model;
-class Image extends Model
+
+class colorImage extends Model
 {
     protected $guarded = ['id'];
 

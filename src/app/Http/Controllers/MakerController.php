@@ -2,20 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-
-use  App\Services\RegistItemServise;
-
-use App\Models\Item;
 use App\Models\Maker;
+use Illuminate\Http\Request;
 
-class RegistItemController extends Controller
+class MakerController extends Controller
 {
-    public function __construct(RegistItemServise $service)
-    {
-        $this->service = $service;
-    }
     /**
      * Display a listing of the resource.
      *
@@ -23,9 +14,19 @@ class RegistItemController extends Controller
      */
     public function index()
     {
-        $makers = Maker::all();
-        $supplies = $makers->where('supply_flag', true);
-        return view('item.regist', compact('makers', 'supplies'));
+        $makers = Maker::paginate(50);
+        return view('maker.index', compact('makers'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $shippingDays = Maker::SHIPPING_DATE;
+        return view('maker.regist', compact('shippingDays'));
     }
 
     /**
@@ -36,13 +37,8 @@ class RegistItemController extends Controller
      */
     public function store(Request $request)
     {
-        $attributes = $request->all();
-
-        $result = $this->service->createNewItem($attributes);
-        if ($result) {
-            return redirect('/item')->with('registered', '投稿が完了しました');
-        }
-        return redirect()->back()->withInput();
+        Maker::create($request->all());
+        return redirect('/admin/maker')->with('registered', '投稿が完了しました');
     }
 
     /**

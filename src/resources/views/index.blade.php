@@ -6,7 +6,18 @@
 <h1 class="border-bottom pb-2 mb-3"><small>商品一覧</small></h1>
 @endsection
 
+
 @section('content')
+<!--登録メッセージ-->
+@if (session('registered'))
+  <div class="alert alert-success" role="alert">
+    登録しました。
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+@endif
+
 <div class="mb-3 clearfix">
   <!-- 新規登録ボタン -->
   <div class="clearfix">
@@ -37,17 +48,25 @@
     <tr class="align-middle">
       <td class="align-middle" style="width:90px;">
         <a href="{{ url('/item/show',$item->id)}}">
-          <picture>
-            <source type="image/webp" srcset=""
+          @if($item->thumbnail)
+            <img src="{{$item->thumbnail->url}}"
               height="70px"
-              class="d-block mx-auto"/>
-            <img src=""
+              class="d-block mx-auto" 
+            />
+          @else
+            <img src="{{ asset('storage/icon/no_image.png') }}"
               height="70px"
-              class="d-block mx-auto" />
+              class="d-block mx-auto" 
+            />
+          @endif
           </picture>
         </a>
       </td>
-      <td class="align-middle">{{$item->cm_number}}</td>
+      <td class="align-middle">
+        <a href="{{ url('/item/show',$item->id)}}">
+          {{$item->cm_number}}
+        </a>
+      </td>
       <td class="align-middle">{{$item->name}}</td>
       <td class="align-middle">{{$item->maker->name}}</td>
       <td class="align-middle">{{$item->category}}</td>

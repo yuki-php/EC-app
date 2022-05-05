@@ -17,9 +17,9 @@ class CreateImagesTable extends Migration
             $table->id();
             $table->foreignId('item_id')->constrained('items')->nullable();
             $table->string('file_path')->nullable();
-            $table->string('name')->nullable();
-            $table->tinyInteger('display_order');
+            $table->tinyInteger('display_order')->nullable();
             $table->boolean('top_image_flag')->default(0);
+            $table->timestamps();
             $table->softDeletes('deleted_at', 0);
         });
     }

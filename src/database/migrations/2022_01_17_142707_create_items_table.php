@@ -17,7 +17,7 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->string('maker_code')->nullable();
             $table->string('cm_number')->nullable()->index();
-            $table->string('maker_name')->nullable();
+            $table->string('maker_item_name')->nullable();
             $table->string('name')->nullable();
             $table->string('category')->nullable();
             $table->unsignedInteger('wholesale_price')->nullable();
@@ -35,7 +35,7 @@ class CreateItemsTable extends Migration
             $table->boolean('postage_flag')->nullable();
             $table->unsignedInteger('limit_stock')->nullable();
             $table->string('remarks')->nullable();
-            $table->date('delivery_date')->nullable();
+            $table->tinyInteger('delivery_date')->nullable();
             $table->boolean('sale_flag')->default(0)->comment('出品済みフラグ');
             $table->boolean('stop_sale_flag')->default(0);
             $table->timestamps();

@@ -4,7 +4,7 @@
 <!-- ヘッダー -->
 <nav class="navbar navbar-expand-md navbar-dark shadow-sm">
   <div class="container">
-    <a class="navbar-brand" href="">
+    <a class="navbar-brand" href="{{route('item.index')}}">
       <img class='navbar-logo' src="{{asset('storage/icon/header-icon.jpeg')}}">
       {{ config('app.name', 'App') }}
     </a>
@@ -18,8 +18,16 @@
           <i class="fas fa-tshirt"></i>商品
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/">商品一覧</a>
-          <a class="dropdown-item" href="">未出品商品一覧</a>
+          <a class="dropdown-item" href="{{route('item.index')}}">商品一覧</a>
+          <a class="dropdown-item" href="{{route('item.index')}}">未出品商品一覧</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-tshirt"></i>メーカー
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/admin/maker">メーカー一覧</a>
           </div>
         </li>
       </ul>

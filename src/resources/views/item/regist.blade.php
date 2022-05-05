@@ -11,20 +11,33 @@
 @section('content')
 
 <!--一括登録テーブル-->
-<div class="item-detail-table">
+<div class="item-detail-table w-75 mx-auto">
   <form action="/regist_item"  method="POST" class="mb-5" name="form"> 
   @csrf
     <!--基本情報-->
     <div id="itemDetailForm">
-      <h6>基本情報</h6>
+      <h6>メーカー情報</h6>
       <table class="table table-bordered p-3">
         <tbody>
           <tr>
+            <th  class="th-row" scope="row" >発注先</th>
+            <td>
+              <select name="suuplier_id" class="custom-select custom-select-sm w-25">
+              <option value="{{old('suuplier_id')}}"></option>
+              @foreach($supplies as $supply)
+                <option value="{{old('suuplier_id',$supply->id)}}">
+                {{$supply->name}}
+                </option>
+              @endforeach
+              </select>
+            </td>
+          </tr>
+          <tr>
             <th  class="th-row" scope="row" >メーカー</th>
             <td>
-              <select name="maker" class="custom-select custom-select-sm w-25">
+              <select name="maker_id" class="custom-select custom-select-sm w-25">
               @foreach($makers as $maker)
-                <option value="{{old('maker',$maker->id)}}">
+                <option value="{{old('maker_id',$maker->id)}}">
                 {{$maker->name}}
                 </option>
               @endforeach
@@ -48,7 +61,7 @@
           <tr>
             <th  class="th-row" scope="row">メーカー商品名</th>
             <td>
-              <input type="text" name="maker_name" value="{{ old('maker_name') }}" class="form-control form-control-sm w-75">
+              <input type="text" name="maker_item_name" value="{{ old('maker_item_name') }}" class="form-control form-control-sm w-75">
             </td>
           </tr>
 
@@ -59,16 +72,6 @@
 
               <div class="invalid-feedback">
               {{ $errors->first('wholesale_price') }}
-              </div>
-            </td>
-          </tr>
-
-          <tr>
-            <th  class="th-row" scope="row">販売価格</th>
-            <td>
-              <input type="text" name="sale_price" value="{{ old('sale_price') }}" class="form-control form-control-sm w-50 @if(!empty($errors->first('sale_price'))) is-invalid @endif">
-              <div class="invalid-feedback">
-              {{ $errors->first('sale_price') }}
               </div>
             </td>
           </tr>

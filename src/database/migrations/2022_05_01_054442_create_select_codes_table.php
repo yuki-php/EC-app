@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateColorImagesTable extends Migration
+class CreateSelectCodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateColorImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('color_images', function (Blueprint $table) {
+        Schema::create('select_codes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('item_id')->constrained('items')->nullable();
-            $table->string('file_path')->nullable();
-            $table->string('color')->nullable();
+            $table->string('original_code');
+            $table->string('site_code');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateColorImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('color_images');
+        Schema::dropIfExists('select_codes');
     }
 }
