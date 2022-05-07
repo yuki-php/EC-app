@@ -11,9 +11,38 @@ class ItemController extends Controller
 {
     public function index(request $request)
     {
-        $items = Item::sortable()->paginate(50);
+        // キーワードを取得
+        $keyword = $request->input('keyword');
+        $search_target = $request->input('search_target') ??  'cm_number';
+        $search_maker_id = $request->input('search_maker_id');
 
-        return view('/index',compact('items'));
+        $pagination_params = [
+            'keyword' => $keyword,
+            'search_target' => $search_target,
+            'search_maker_id' => $search_maker_id,
+        ];
+
+        $items = Item::sortable()
+            ->when(
+                $keyword,
+                function ($query) use ($search_target, $keyword) {
+                    if ($search_target === 'item_name') {
+                        return $query->where('maker_item_name', 'like', '%' . $keyword . '%')
+                            ->orWhere('name', 'like', '%' . $keyword . '%');
+                    }
+                    return $query->where($search_target, 'like', '%' . $keyword . '%');
+                }
+            )
+            ->when(
+                $search_maker_id,
+                function ($query) use ($search_maker_id) {
+                    return $query->where('maker_id', $search_maker_id);
+                }
+            )
+            ->paginate(50);
+        $makers = Maker::all();
+
+        return view('/index', compact('items', 'makers', 'pagination_params'));
     }
 
     public function show(request $request)

@@ -13,8 +13,9 @@ class CsvDownloadController extends Controller
 {
     public function downloadCsv(Request $request)
     {
+        $ids = explode(',', $request->itemId);
         $service = new YahooCsvService();
-        $item = Item::whereIn('id', [$request->itemId])
+        $item = Item::whereIn('id', $ids)
             ->with(['skus' => function ($q) {
                 $q->orderBy('color_display_order')->orderBy('size_display_order');
             }])
@@ -34,7 +35,5 @@ class CsvDownloadController extends Controller
         exec($command);
 
         $res = Storage::disk('local')->deleteDirectory("public/ProductCsv");
-        // $headers = ["Content-Type: application/octet-stream; charset=utf-8"];
-        // return response()->download(storage_path("app/public/ProductCsv.zip"), "ProductCsv.zip", $headers)->deleteFileAfterSend();
     }
 }

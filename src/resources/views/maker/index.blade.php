@@ -71,8 +71,13 @@
       <td class="align-middle">{{$maker->name}}</td>
       <td class="align-middle">{{$maker->shipping_days}}</td>
       <td class="align-middle">
-        <input type
-        {{$maker->supply_flag}}
+        <label class="form-check-label ml-2 ">発注先</label>
+        <input class="form-check-input ml-3" type="checkbox" name='supply_flag'
+         value="{{old('supply_flag',$maker->supply_flag)}}"
+         @if($maker->supply_flag) checked
+         @else ''
+        @endif
+         >
       </td>
       <td class="align-middle">
         <i class="far fa-trash-alt"></i>

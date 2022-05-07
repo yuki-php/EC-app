@@ -18,11 +18,71 @@
   </div>
 @endif
 
+<!--検索フォーム-->
+<div class="card  bg-light mb-3">
+  <div class="card-body">
+    <form action="{{url('/item')}}" method="get">
+      @csrf
+
+      <div class="row mb-3">
+        <div class="col-sm-6 col-md-6 col-lg-4">
+          <p class="mb-1" style="margin-top:2px;">キーワード</p>
+          <input id="" name="keyword" class="form-control form-control-sm mb-2" type="text" value="{{ $pagination_params['keyword'] }}" maxlength="20">
+
+          <p class="mb-1">検索対象：
+
+          <div class="custom-control custom-radio custom-control-inline">
+            <input id="search_target1" name="search_target" class="custom-control-input" type="radio" value="cm_number" checked="checked">
+            <label for="search_target1" class="custom-control-label">
+            品番
+            </label>
+          </div>
+
+          <div class="custom-control custom-radio custom-control-inline">
+            <input id="search_target2" name="search_target" class="custom-control-input" type="radio" value="item_name"  {{ $pagination_params['search_target'] == 'maker_item_name' ? 'checked' : '' }}>
+            <label for="search_target2" class="custom-control-label">
+            商品名
+            </label>
+          </div>
+
+          </p>
+        </div>
+
+        <div class="col-sm-2 col-md-2 col-lg-2">
+        <p class="mb-1">メーカー</p>
+          <select name="search_maker_id" class="custom-select custom-select-sm w-100">
+            <option value="">全て</option>
+            @foreach($makers as $maker)
+            <option value="{{ $maker->id }}" {{ $pagination_params['search_maker_id'] == $maker->id ? 'selected' : '' }}>
+              {{ $maker->name }}
+            </option>
+            @endforeach
+          </select>
+        </div>
+
+      </div>
+
+      <div class="text-center">
+      <input type="submit" class="btn btn-primary btn-sm submit-btn mx-1" value="検索" style="width:200px;">
+      </div>
+
+    </form>
+  </div>
+</div>
+
 <div class="mb-3 clearfix">
   <!-- 新規登録ボタン -->
-  <div class="clearfix">
+  <div class="float-right">
     <a href="/regist_item" class="btn btn-success rounded-pill align-baseline align-base float-right" >
       <i class="fas fa-plus"></i> 新規登録
+    </a>
+  </div>
+  <div class="float-right mr-3">
+    <a href="{{route('item.csv-download',['itemId' => $items->pluck('id')->implode(',')])}}" >
+    <!-- <a href="/item/csv-download/{{$items->pluck('id')}}" > -->
+      <button  type="button" class="btn btn-primary btn-circle btn-small ">
+        <i class="far fa-file-excel"></i>一括ダウンロード
+      </button>
     </a>
   </div>
     <!-- ページネーション-->
