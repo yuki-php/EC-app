@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Item;
 use App\Models\Maker;
@@ -41,8 +42,15 @@ class ItemController extends Controller
             )
             ->paginate(50);
         $makers = Maker::all();
+        $file = Storage::disk('HDD')->path('test/lack/3329097_1017.jpg');
+        dd($file);
+        $tt = Storage::disk('public')->putFile(
+            'HDD/test',
+            Storage::disk('public')->path('icon/camera.jpeg'),
+            'public'
+        );
 
-        return view('/index', compact('items', 'makers', 'pagination_params'));
+        return view('/index', compact('items', 'makers', 'sample', 'pagination_params'));
     }
 
     public function show(request $request)

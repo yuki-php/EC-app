@@ -114,7 +114,8 @@
               class="d-block mx-auto" 
             />
           @else
-            <img src="{{ asset('storage/icon/no_image.png') }}"
+            <!-- <img src="{{ asset('storage/icon/no_image.png') }}" -->
+            <img href="/Volumes/HDD/test/lack/3329097_7.jpg"
               height="70px"
               class="d-block mx-auto" 
             />

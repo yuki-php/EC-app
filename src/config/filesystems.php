@@ -43,6 +43,13 @@ return [
 
     'disks' => [
 
+        'HDD' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/HDD'),
+            'url' => env('APP_URL') . '/storage/app/public/HDD',
+            'visibility' => 'public',
+        ],
+
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
