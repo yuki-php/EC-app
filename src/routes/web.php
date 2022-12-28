@@ -22,7 +22,7 @@ Route::get('/', function () {
 Route::group(['middleware' => 'auth'], function () {
 
     /**===商品ページ=== **/
-    Route::get('/item', 'ItemController@index')->name('item.index');
+    Route::get('/item/{param?}', 'ItemController@index')->name('item.index');
     Route::get('/item/show/{itemId}','ItemController@show');
     /**===商品画像のアップロード=== **/
     Route::post('/item/show/{itemId}', 'ImageController@upload')->name('item-image.upload');
@@ -33,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     /**===商品更新=== **/
     Route::post('/item/update', 'ItemController@update')->name('item.update');
     /**===出品用CSVダウンロード=== **/
-    Route::get('/item/csv-download/{itemId}', 'CsvDownloadController@downloadCsv')->name('item.csv-download');
+    Route::post('/item/csv-download/{mallIds?}', 'CsvDownloadController@downloadCsv')->name('item.csv-download');
 
 
 

@@ -254,8 +254,10 @@
           <td>
             @for($i = 1; $i <= 5; $i++)
             <div class='form-area needs-validation mt-1 mb-1'>
-              <input type='text' name="category_{{$i}}" 
-              value="{{ old("category_$i",($item->categories)? "$item->categories->category_$i": "" ) }}" 
+              <input type='text' name="categories[category_{{$i}}]" 
+              value="{{ old("categories[category_${i}]", 
+              ($item->categories) ? $item->categories->{'category_' .$i}: "" ) 
+              }}" 
               placeholder="カテゴリー{{$i}}"
               class='form-control form-control-sm'>
             </div>

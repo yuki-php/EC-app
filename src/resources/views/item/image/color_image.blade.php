@@ -5,13 +5,15 @@
   @foreach($colors as $key => $value)
   <div  class="col-3 position-relative p-0 border">
     <div  class="position-relative">
-        @if($value['image']->first())
+        @if($value['image'] ?? null)
+        <div class="w-100 d-flex justify-content-center align-items-center bg-light" style="height: 200px; width: 200px;">
           <img
-            src="{{ $value['image']->first()->url }}"
-            class="w-100 d-block js-mallImageName"
+            src="{{ $value['image']->color_image_for_blade }}"
+            class="w-100 h-100 d-block js-mallImageName"
           />
+        </div>
         @else
-          <div class="w-100 d-flex justify-content-center align-items-center bg-light" style="height: 200px;">
+          <div class="w-100 d-flex justify-content-center align-items-center bg-light" style="height: 200px; width: 200px;">
             <i class="fas fa-camera fa-3x"></i>
           </div>
         @endif

@@ -11,7 +11,6 @@
 
 @section('head_script')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
 
 @endsection
 
@@ -30,12 +29,39 @@
 </div>
 @endif
 
-<div class='m-3 text-right'>
-  <button class='button button-success'
-    onclick="location.href='{{ route('item.csv-download',[$item->id]) }}'"
-  >
+<div class='container mx-auto mb-3'>
+  <div class="text-right">
+    <button type="button" class="btn btn-success btn-circle btn-small" data-toggle="modal" data-target="#myModal1">
     CSVダウンロード
-  </button>
+    </button>
+  </div>
+  <!-- モーダル -->
+  <div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">CSVダウンロード</h4>
+        </div>
+        <form id='csv_download_link' action="{{route('item.csv-download')}}" method="post">
+          @csrf
+          <div class="modal-body">
+            <p class="font-weight-bold">モール</p>
+            <div class="form-group">
+              <div class="form-check">
+                <input type="hidden" name="itemId[]" value="{{$item->id}}">
+                <input class="downloadMalls form-check-input" type="checkbox" id="Yahoo" name="mallIds[]" value="Yahoo">
+                <label class="form-check-label  ml-3" for="check1a">Yahooショッピング</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Download</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- 画像 -->
 <div class='image-container container'>

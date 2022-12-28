@@ -9,7 +9,7 @@ $(document).on('change', 'input[type="file"].js-uploadColorImage', e => {
   const url = target.attr('data-url')
   const data = new FormData()
   data.append('image', e.currentTarget.files[0])
-
+console.log(method,url,data)
   window.overlayLoading.show()
     $.ajax({
         type: method,

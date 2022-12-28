@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSelectCodesTable extends Migration
+class AddColumnToSelectCodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateSelectCodesTable extends Migration
      */
     public function up()
     {
-        Schema::create('select_codes', function (Blueprint $table) {
-            $table->id();
-            $table->string('original_code');
-            $table->string('site_code')->nullable();
-            $table->timestamps();
+        Schema::table('select_codes', function (Blueprint $table) {
+            $table->string('sku_code')->after('original_code')->nullable()->comment('SKU上の対応するコード');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateSelectCodesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('select_codes');
+        Schema::table('select_codes', function (Blueprint $table) {
+            $table->dropColumn('sku_code');
+        });
     }
 }

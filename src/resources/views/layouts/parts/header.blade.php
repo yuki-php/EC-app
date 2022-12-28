@@ -19,7 +19,7 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{{route('item.index')}}">商品一覧</a>
-          <a class="dropdown-item" href="{{route('item.index')}}">未出品商品一覧</a>
+          <a class="dropdown-item" href="{{route('item.index',['param' => 'unreleased'])}}">未出品商品一覧</a>
           </div>
         </li>
         <li class="nav-item dropdown">

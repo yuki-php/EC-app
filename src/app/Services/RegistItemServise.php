@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use App\Models\Sku;
 use App\Models\Item;
 use App\Models\Maker;
+use App\Models\SelectCode;
 
 class RegistItemServise
 {
@@ -25,10 +26,8 @@ class RegistItemServise
   {
     $attributes['cm_number'] = 'CM-' . sprintf('%02d', $attributes['maker_id']) . $attributes['maker_code'];
     $attributes['supplier_id'] = $attributes['supplier_id'] ?? $attributes['maker_id'];
-    // dd($attributes);
     DB::beginTransaction();
     try {
-
       $newItem = Item::create($attributes);
       $types = $attributes['types'];
         if($types['maker_type1']['name'] !== null) {
@@ -55,9 +54,11 @@ class RegistItemServise
                   $newItem->skus()->create([
                     'maker_size' => $value1,
                     'size' => $value1,
+                    'size_code' => SelectCode::firstWhere('original_code', $value1)->sku_code ?? '',
                     'size_display_order' => $t1Count,
                     'maker_color' => $value2,
                     'color' => $value2,
+                    'color_code' => SelectCode::firstWhere('original_code', $value2)->sku_code ?? '',
                     'color_display_order' => $t2Count,
                     'maker_type3_name' => $item3Name,
                     'item_type3_name' => $item3Name,
@@ -74,9 +75,11 @@ class RegistItemServise
                 $newItem->skus()->create([
                   'maker_size' => $value1,
                   'size' => $value1,
+                  'size_code' => SelectCode::firstWhere('original_code', $value1)->sku_code ?? '',
                   'size_display_order' => $t1Count,
                   'maker_color' => $value2,
                   'color' => $value2,
+                  'color_code' => SelectCode::firstWhere('original_code', $value2)->sku_code ?? '',
                   'color_display_order' => $t2Count,
                   'sku_code' =>  $skuCode,
                   'barcode' => $skuCode
@@ -89,6 +92,7 @@ class RegistItemServise
             $newItem->skus()->create([
               'maker_size' => $value1,
               'size' => $value1,
+              'size_code' => SelectCode::firstWhere('original_code', $value1)->sku_code ?? '',
               'size_display_order' => $t1Count,
               'sku_code' =>  $skuCode,
               'barcode' => $skuCode

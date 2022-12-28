@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 use App\Models\Item;
 use App\Models\Maker;
@@ -12,6 +11,7 @@ class ItemController extends Controller
 {
     public function index(request $request)
     {
+        $unreleased = ($request->param === 'unreleased') ?? '';
         // キーワードを取得
         $keyword = $request->input('keyword');
         $search_target = $request->input('search_target') ??  'cm_number';
@@ -24,6 +24,12 @@ class ItemController extends Controller
         ];
 
         $items = Item::sortable()
+            ->when(
+                $unreleased,
+                function ($query) {
+                    return  $query->where('sale_flag', false);
+                }
+            )
             ->when(
                 $keyword,
                 function ($query) use ($search_target, $keyword) {
@@ -42,15 +48,7 @@ class ItemController extends Controller
             )
             ->paginate(50);
         $makers = Maker::all();
-        $file = Storage::disk('HDD')->path('test/lack/3329097_1017.jpg');
-        dd($file);
-        $tt = Storage::disk('public')->putFile(
-            'HDD/test',
-            Storage::disk('public')->path('icon/camera.jpeg'),
-            'public'
-        );
-
-        return view('/index', compact('items', 'makers', 'sample', 'pagination_params'));
+        return view('/index', compact('items', 'makers', 'pagination_params'));
     }
 
     public function show(request $request)
@@ -72,6 +70,13 @@ class ItemController extends Controller
     {
         $item = Item::find($request->item_id);
         $item->update($request->all());
+        $categories = $request->categories;
+
+        if ($itemCategory = $item->categories ?? null) {
+            $itemCategory->fill($categories)->save();
+        } else {
+            $item->categories()->create($categories);
+        }
         foreach ($request->sku as $skuId => $value) {
             $item->skus()->where('id', $skuId)->update($value);
         }

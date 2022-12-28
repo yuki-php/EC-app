@@ -49,9 +49,10 @@
           <tr>
             <th  class="th-row" scope="row">発注先フラグ</th>
             <td>
-              <div class="col-6 form-check p-0">
-                <input type="radio" name="supply_flag" id="発注先フラグ" value=0 @if(old('supply_flag') === 0 ) @endif>
-                <label for="発注先フラグ"  class='form-check-label'>発注先</label>
+              <div class="custom-control custom-checkbox mr-3 custom-control-inline mt-2">
+                <input type="hidden" name="supply_flag" value="0">
+                <input type="checkbox" name="supply_flag" id="発注先フラグ" class="form-check-input" value="1" @if(old('supply_flag') === 0 ) @endif>
+                <label for="発注先フラグ"  class='form-check-label ml-3'>発注先</label>
               </div>
             </td>
           </tr>

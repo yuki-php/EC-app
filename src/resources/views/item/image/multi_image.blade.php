@@ -4,7 +4,7 @@
 <div class='row'>
   @foreach($item->images as $image)
   <div class='col-3 p-1 border'>
-    <img class='muliItemImage h-100 w-100' src="{{ $image->url }}">
+    <img class='muliItemImage h-100 w-100' src="{{ $image->image_for_blade }}">
   </div>
   @endforeach
 </div>

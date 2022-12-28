@@ -16,6 +16,13 @@
       <span aria-hidden="true">&times;</span>
       </button>
   </div>
+@elseif (session('error'))
+  <div class="alert alert-danger" role="alert">
+    {{ session('error') }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 @endif
 
 <!--検索フォーム-->
@@ -78,22 +85,58 @@
     </a>
   </div>
   <div class="float-right mr-3">
-    <a href="{{route('item.csv-download',['itemId' => $items->pluck('id')->implode(',')])}}" >
-    <!-- <a href="/item/csv-download/{{$items->pluck('id')}}" > -->
-      <button  type="button" class="btn btn-primary btn-circle btn-small ">
-        <i class="far fa-file-excel"></i>一括ダウンロード
-      </button>
-    </a>
+    <button  type="button" class="btn btn-primary btn-circle btn-small" data-toggle="modal" data-target="#myModal1">
+      <i class="far fa-file-excel"></i>一括ダウンロード
+    </button>
+    <!-- モーダル -->
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">CSVダウンロード</h4>
+          </div>
+          <form id='csv_download_link' action="" method="post">
+          @csrf
+          <div class="modal-body">
+            <p class="font-weight-bold">モール</p>
+            <div class="form-group">
+              <div class="form-check">
+                <input class="downloadMalls form-check-input" type="checkbox" id="Yahoo" name="mallIds[]" value="Yahoo">
+                <label class="form-check-label  ml-3" for="check1a">Yahooショッピング</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Download</button>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-    <!-- ページネーション-->
-    <div class="float-right">
-  {{ $items->appends(request()->query())->links() }}
+
+  <!-- ページネーション-->
+  <div class="float-right">
+    {{ $items->appends(request()->query())->links() }}
   </div>
 </div>
 
 <table class="table table-hover">
   <thead class="text-center">
     <tr>
+      <th style="width: 50px;">
+        <div style="cursor:pointer;">
+          <span class="bundle-icon">
+            <i class="fas fa-caret-right"></i>
+            一括
+          </span>
+        </div>
+        <div class="bundle mt-3 d-none">
+          <input type="checkbox" name="bundle-check" class="m-auto">
+        </div>
+      </th>
       <th>商品画像</th>
       <th>@sortablelink('cm_number', '品番')</th>
       <th>@sortablelink('name', '商品名')</th>
@@ -105,17 +148,19 @@
   </thead>
   <tbody class="table-bordered table-striped">
     @foreach($items as $item)
-    <tr class="align-middle">
+    <tr class="align-middle text-center">
+      <td class="align-middle">
+        <input class="selectIds" type="checkbox" name="bulks[$item->id]" value="{{$item->id}}">
+      </td>
       <td class="align-middle" style="width:90px;">
         <a href="{{ url('/item/show',$item->id)}}">
           @if($item->thumbnail)
-            <img src="{{$item->thumbnail->url}}"
+            <img src="{{$item->thumbnail_for_blade}}"
               height="70px"
-              class="d-block mx-auto" 
+              class="d-block mx-auto"
             />
           @else
-            <!-- <img src="{{ asset('storage/icon/no_image.png') }}" -->
-            <img href="/Volumes/HDD/test/lack/3329097_7.jpg"
+            <img src="{{asset('storage/icon/no_image.png')}}"
               height="70px"
               class="d-block mx-auto" 
             />
@@ -139,4 +184,56 @@
     @endforeach
   </tbody>
 </table>
-@endsection
+@endsection 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+  const baseUrl = '/item/csv-download/'
+  jQuery(function() {
+    $('#csv_download_link').attr('action',baseUrl);
+
+    $('.selectIds').change(function() {
+      $('#csv_download_link').attr('action',baseUrl);
+      let param = {};
+      let ids = [];
+      $('.selectIds:checked').each(function() {
+        ids.push($(this).val());
+      });
+      param.itemId = ids;
+      let setUrl = baseUrl + '/?' +  $.param(param);
+      $('#csv_download_link').attr('action',setUrl);
+    })
+
+  $('.bundle-icon').on('click',function() {
+    const bundleTarget = $('.bundle'); 
+    if(bundleTarget.hasClass('d-none')) {
+      bundleTarget.removeClass('d-none').addClass('d-block');
+      $('.bundle-icon i').removeClass('fa-caret-right').addClass('fa-caret-down');
+    } else {
+      bundleTarget.removeClass('d-block').addClass('d-none');
+       $('.bundle-icon i').removeClass('fa-caret-down').addClass('fa-caret-right');
+    }
+  })
+
+  $('input[name=bundle-check]').change(function() {
+    let res = $(this).prop('checked');
+    let param = {};
+    let ids = [];
+    if(res) {
+      $('.selectIds').each(function() {
+        $(this).prop('checked',res);
+        ids.push($(this).val());
+      })
+      param.itemId = ids;
+      let setUrl = baseUrl + '/?' +  $.param(param);
+      $('#csv_download_link').attr('action',setUrl);
+    } else {
+      $('.selectIds').each(function() {
+        $(this).prop('checked',res);
+        ids.push($(this).val());
+      })
+      $('#csv_download_link').attr('action',baseUrl);
+    }
+    
+  })
+});
+</script>

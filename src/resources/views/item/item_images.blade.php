@@ -9,7 +9,7 @@
       <div class="slick-box">
         @foreach($item->images as $image)
         <div>
-          <img src="{{ $image->url }}">
+          <img src="{{ $image->image_for_blade }}">
         </div>
         @endforeach
         <div>

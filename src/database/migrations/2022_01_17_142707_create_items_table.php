@@ -27,14 +27,14 @@ class CreateItemsTable extends Migration
             $table->string('country_of_origin')->nullable();
             $table->string('material')->nullable();
             $table->string('head_name')->nullable();
-            $table->string('maker_description')->nullable();
-            $table->string('description')->nullable();
+            $table->text('maker_description')->nullable();
+            $table->text('description')->nullable();
             $table->string('sex')->nullable();
             $table->unsignedSmallInteger('packing_shape')->nullable();
             $table->string('pack_size')->nullable();
             $table->boolean('postage_flag')->nullable();
             $table->unsignedInteger('limit_stock')->nullable();
-            $table->string('remarks')->nullable();
+            $table->text('remarks')->nullable();
             $table->tinyInteger('delivery_date')->nullable();
             $table->boolean('sale_flag')->default(0)->comment('出品済みフラグ');
             $table->boolean('stop_sale_flag')->default(0);

@@ -55,12 +55,25 @@ class Item extends Model
 
     public function getThumbnailAttribute()
     {
-        $image = $this->images;
+        $image = $this->images->first();
         if (empty($image)) {
             return null;
         }
+        return $image->file_path;
+        // return \Storage::disk('HDD')->url($image->file_path);
+    }
 
-        return $image->first();
+    public function getThumbnailForBladeAttribute()
+    {
+        $image = $this->images->first();
+        if (empty($image)) {
+            return null;
+        }
+        $img = file_get_contents(\Storage::disk('HDD')->path($image->file_path));
+        $enc_img = base64_encode($img);
+        $imginfo = getimagesize('data:application/octet-stream;base64,' . $enc_img);
+
+        return "data:$imginfo[mime];base64,$enc_img";
     }
 
     public function getCategoryPathAttribute(): ?array

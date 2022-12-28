@@ -9,7 +9,9 @@
               <th scope='col'>SKUコード</th>
               <th scope='col'>バーコード</th>
               <th scope='col'>サイズ</th>
+              <th scope='col'>サイズコード</th>
               <th scope='col'>カラー</th>
+              <th scope='col'>カラーコード</th>
               <th scope='col'>アイテムタイプ3</th>
               <th scope='col'>在庫数</th>
               <th scope='col'>在庫切れ</th>
@@ -28,7 +30,13 @@
                 <input type='text' name="sku[{{$sku->id}}][size]" value='{{$sku->size}}'>
               </td>
               <td>
+                <input type='text' name="sku[{{$sku->id}}][size_code]" value='{{$sku->size_code}}'>
+              </td>
+              <td>
                 <input type='text' name="sku[{{$sku->id}}][color]" value='{{$sku->color}}' >
+              </td>
+              <td>
+                <input type='text' name="sku[{{$sku->id}}][color_code]" value='{{$sku->color_code}}' >
               </td>
               <td>
                 <input type='text' name="sku[{{$sku->id}}][item_type3]" value='{{$sku->item_type3}}'>

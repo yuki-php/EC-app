@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
 
 use App\Models\Item;
 
@@ -22,7 +22,7 @@ class ImageController extends Controller
             // return $color->first()->getColorImages();
             return [
                 'color' => $sku->first()->color,
-                'image' => $sku->first()->getColorImages()
+                'image' => $sku->first()->getColorImages()->first() ?? null
             ];
         });
         return view('item.image.index', compact(['item', 'colors']));
@@ -38,20 +38,19 @@ class ImageController extends Controller
      */
     public function uploadColorImage(Request $request)
     {
-        // dd($request->all(), $request->itemId, $request->colorName);
         $color = $request->colorName;
         $item = Item::with(['color_images' => function ($q) use ($color) {
-            $q->where('color_name', $color);
+            $q->where('color', $color);
         }])->find($request->itemId);
         if (!$item->cm_number) return response()->json('先に商品番号を登録してください', 500);
 
         $image = $request->image;
         $count = $item->color_images->max() + 1;
         $fileName = $item->cm_number . '_' . $request->colorName . sprintf('%02d', $count) . '.' . $image->extension();
-        $path = $image->storeAs('public/itemImage/' . $item->id,  $fileName);
+        $path = Storage::disk('HDD')->putFileAs($item->cm_number, $image, $fileName);
         $item->color_images()->create([
             'item_id' => $item->id,
-            'color_name' => $color,
+            'color' => $color,
             'file_path' => $path
         ]);
 
@@ -71,7 +70,9 @@ class ImageController extends Controller
         $count = $item->images->count() + 1;
         foreach ($request->images as $key => $image) {
             $fileName = $item->cm_number . '_'  . sprintf('%02d', $count) . '.' . $image['file']->extension();
-            $path = $image['file']->storeAs('public/itemImage/' . $item->id,  $fileName);
+            $path = Storage::disk('HDD')->putFileAs($item->cm_number, $image['file'], $fileName);
+            // $path = $image['file']->storeAs('public/HDD/' . $item->cm_number,  $fileName);
+            // dd($path);
             $item->images()->create([
                 'item_id' => $item->id,
                 'file_path' => $path,

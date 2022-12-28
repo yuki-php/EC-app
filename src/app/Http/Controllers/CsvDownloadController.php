@@ -13,13 +13,15 @@ class CsvDownloadController extends Controller
 {
     public function downloadCsv(Request $request)
     {
-        $ids = explode(',', $request->itemId);
+        // dd($request->all(), $request->itemId, $request->mallIds);
+        if (!$request->itemId || !$request->mallIds) return  redirect('/item')->with('error', '商品またはモールが選択されていません');
+        $ids = $request->itemId;
         $service = new YahooCsvService();
         $item = Item::whereIn('id', $ids)
             ->with(['skus' => function ($q) {
                 $q->orderBy('color_display_order')->orderBy('size_display_order');
             }])
-            ->get();
+            ->get()->sortBy('cm_number');
         $service->Listing($item);
 
         $this->export();

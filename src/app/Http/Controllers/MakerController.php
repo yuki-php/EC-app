@@ -15,7 +15,6 @@ class MakerController extends Controller
     public function index()
     {
         $makers = Maker::paginate(50);
-        // dd($makers->first());
         return view('maker.index', compact('makers'));
     }
 

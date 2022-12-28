@@ -14,9 +14,9 @@ class YahooCsvService
     'price',
     'headline',
     'explanation',
-    'additiona1',
-    'additiona2',
-    'additiona3',
+    'additional1',
+    'additional2',
+    'additional3',
   ];
 
   const YAHOO_OPTION_HEADER = [
@@ -118,7 +118,7 @@ class YahooCsvService
           '',
           '',
           2,
-          $sku->getColorImages->first()->url ?? ''
+          ''
         ];
         mb_convert_variables('SJIS-win', 'UTF-8', $row); //文字化け対策
         fputcsv($createCsvFile, $row);
