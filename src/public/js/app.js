@@ -49775,6 +49775,16 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+window.overlayLoading = {
+  show: function show() {
+    $("#overlayLoadingWrap").show();
+    $("body").addClass("overflow-hidden");
+  },
+  hide: function hide() {
+    $("body").removeClass("overflow-hidden");
+    $("#overlayLoadingWrap").hide();
+  }
+};
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your
@@ -49793,8 +49803,7 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-var app = new Vue({
-  el: '#app'
+var app = new Vue({// el: '#app',
 });
 
 /***/ }),

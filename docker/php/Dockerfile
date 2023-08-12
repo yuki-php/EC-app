@@ -18,4 +18,4 @@ RUN apt-get update && \
     vim \
     && docker-php-ext-install pdo_mysql bcmath
 
-WORKDIR /var/www/html
+WORKDIR /var/www/ec-app

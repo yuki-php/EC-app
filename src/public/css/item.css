@@ -1,0 +1,27 @@
+.item-container th {
+  vertical-align: middle;
+  font-size: 0.5em;
+}
+.image-container {
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+.form-area {
+  padding-right: 2rem;
+  padding-left: 2rem;
+}
+.form-area2 {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+.table-responsive td input {
+  width: 8rem;
+  text-align: center;
+}
+.code-cell {
+  width: 12rem !important;
+}
+#upImage {
+  height: 200px;
+  width: 200px;
+}
