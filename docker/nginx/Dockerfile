@@ -1,8 +1,5 @@
-FROM nginx:1.18-alpine
+# ベースイメージの指定
+FROM nginx:stable-alpine
 
-ENV TZ=UTC
-
-# nginx config file
-COPY ./docker/nginx/*.conf /etc/nginx/conf.d/
-
-WORKDIR /var/www/html
+# 作成した設定ファイルをコンテナ内にコピー
+COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf

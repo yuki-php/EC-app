@@ -1,34 +1,28 @@
-version: '3.8'
+# docker-composeのバージョン
+version: "3.8" 
 
+# ボリューム定義
 volumes:
   mysql-volume:
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: ./docker/php/Dockerfile
-    volumes:
-      - ./src/:/var/www/html
-      - /Volumes/HDD:/var/www/html/storage/app/public/HDD
-    environment:
-      - DB_CONNECTION=mysql
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_DATABASE=${DB_NAME}
-      - DB_USERNAME=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-
   web:
     build:
       context: .
       dockerfile: ./docker/nginx/Dockerfile
     ports:
       - ${WEB_PORT}:80
-    depends_on:
-      - app
+    # depends_on:
+    #   - app
     volumes:
-      - ./src/:/var/www/html
+      - ./src:/var/www/ec-app
+
+  app:
+    build:
+      dockerfile: "./docker/php/Dockerfile"
+    # srcディレクトリ内のファイルをコンテナ内の~/var/www/html配下にマウント
+    volumes:
+      - ./src:/var/www/ec-app
 
   db:
     build:
